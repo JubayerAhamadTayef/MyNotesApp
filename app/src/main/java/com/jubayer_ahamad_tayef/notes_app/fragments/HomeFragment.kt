@@ -142,11 +142,6 @@ class HomeFragment : Fragment(R.layout.fragment_home), SearchView.OnQueryTextLis
             }
 
             else -> false
-        } || when (menuItem.itemId) {
-            R.id.exit -> {
-                exit()
-                true
-            } else -> false
         }
     }
 
@@ -164,16 +159,6 @@ class HomeFragment : Fragment(R.layout.fragment_home), SearchView.OnQueryTextLis
                     view?.findNavController()?.popBackStack(R.id.welcomeFragment, false)
 
                 }
-            }
-            setNegativeButton("No", null)
-        }.create().show()
-    }
-private fun exit() {
-        AlertDialog.Builder(activity, R.style.CustomDatePickerDialog).apply {
-            setTitle("Exit")
-            setMessage("Do you want to Exit?")
-            setPositiveButton("Yes") { _, _ ->
-                activity?.supportFragmentManager?.beginTransaction()?.remove(this@HomeFragment)?.commit()
             }
             setNegativeButton("No", null)
         }.create().show()
