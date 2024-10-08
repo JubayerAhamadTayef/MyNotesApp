@@ -127,7 +127,7 @@ class EditNoteFragment : Fragment(R.layout.fragment_edit_note), MenuProvider {
             val noteDate = pickADate.text.toString().trim()
             val noteTime = pickATime.text.toString().trim()
 
-            if (noteNumber.isNotEmpty() && noteTitle.isNotEmpty() && noteDescription.isNotEmpty() && noteDate.isNotEmpty() && noteTime.isNotEmpty()) {
+            if (noteNumber.isNotEmpty() && noteTitle.isNotEmpty() && noteDescription.isNotEmpty()) {
 
                 val note = Note(
                     currentNote.id,
@@ -146,7 +146,7 @@ class EditNoteFragment : Fragment(R.layout.fragment_edit_note), MenuProvider {
 
                 Toast.makeText(
                     context,
-                    "Please, Enter Note Title and Note Description!",
+                    "Please, Must be enter Note Number, Note Title and also Note Description. Then click again Update Note!",
                     Toast.LENGTH_SHORT
                 ).show()
 
@@ -181,7 +181,7 @@ class EditNoteFragment : Fragment(R.layout.fragment_edit_note), MenuProvider {
 
         TimePickerDialog(
             requireActivity(),
-            R.style.CustomDatePickerDialog,
+            R.style.CustomTimePickerDialog,
             TimePickerDialog.OnTimeSetListener { timePicker, hour, minute ->
                 calendar.set(Calendar.HOUR_OF_DAY, hour)
                 calendar.set(Calendar.MINUTE, minute)

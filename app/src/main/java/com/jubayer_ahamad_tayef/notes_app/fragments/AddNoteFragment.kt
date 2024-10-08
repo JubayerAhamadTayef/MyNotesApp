@@ -78,7 +78,7 @@ class AddNoteFragment : Fragment(R.layout.fragment_add_note), MenuProvider {
         val noteDate = binding.pickADate.text.toString().trim()
         val noteTime = binding.pickATime.text.toString().trim()
 
-        if (noteNumber.isNotEmpty() && noteTitle.isNotEmpty() && noteDescription.isNotEmpty() && noteDate.isNotEmpty() && noteTime.isNotEmpty()) {
+        if (noteNumber.isNotEmpty() && noteTitle.isNotEmpty() && noteDescription.isNotEmpty()) {
 
             val note = Note(0, noteNumber, noteTitle, noteDescription, noteDate, noteTime)
             notesViewModel.addNote(note)
@@ -90,7 +90,7 @@ class AddNoteFragment : Fragment(R.layout.fragment_add_note), MenuProvider {
 
             Toast.makeText(
                 addNoteView.context,
-                "Please, Enter all needed information. Then click again save!",
+                "Please, Must be enter Note Number, Note Title and also Note Description. Then click again Save Note!",
                 Toast.LENGTH_SHORT
             ).show()
 
