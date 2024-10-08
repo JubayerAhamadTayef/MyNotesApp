@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:context=".fragments.WelcomeFragment">
+
+            <ImageView
+                android:id="@+id/welcomeImage"
+                android:layout_width="350dp"
+                android:layout_height="350dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/welcome_image"
+                app:layout_constraintBottom_toTopOf="@+id/textGroupLinerLayout"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <LinearLayout
+                android:id="@+id/textGroupLinerLayout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="vertical"
+                app:layout_constraintBottom_toTopOf="@+id/loginButton"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/welcomeImage">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/welcome_to_my_notes_app_n_store_your_all_notes_here"
+                    android:textColor="@color/blue"
+                    android:textSize="30sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:text="@string/to_store_your_notes_n_please_login_or_register_first"
+                    android:textColor="@color/black" />
+
+            </LinearLayout>
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/loginButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/notes_background"
+                android:backgroundTint="@color/blue"
+                android:paddingHorizontal="50dp"
+                android:text="@string/login"
+                android:textColor="@color/white"
+                android:textSize="20sp"
+                app:layout_constraintBottom_toTopOf="@id/designerInformation"
+                app:layout_constraintEnd_toStartOf="@+id/registerButton"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textGroupLinerLayout" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/registerButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/notes_background"
+                android:backgroundTint="@color/blue"
+                android:paddingHorizontal="50dp"
+                android:text="@string/register"
+                android:textColor="@color/white"
+                android:textSize="20sp"
+                app:layout_constraintBottom_toTopOf="@id/designerInformation"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/loginButton"
+                app:layout_constraintTop_toBottomOf="@+id/textGroupLinerLayout" />
+
+            <LinearLayout
+                android:id="@+id/designerInformation"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/loginButton"
+                android:gravity="center"
+                android:orientation="vertical"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/design_by"
+                    android:textColor="@color/black" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/jubayer_ahamad_tayef"
+                    android:textColor="@color/blue" />
+
+            </LinearLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

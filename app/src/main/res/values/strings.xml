@@ -1,0 +1,42 @@
+<resources>
+    <string name="app_name">My Notes</string>
+    <string name="save_note">Save Note</string>
+    <string name="search">Search</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="add_note">Add Note</string>
+    <string name="enter_your_note_title_here">Enter your Note Title here</string>
+    <string name="enter_your_note_description_here">Enter your Note Description here</string>
+    <string name="update_note">Update Note</string>
+    <string name="edit_your_note_description_here">Edit your Note Description here</string>
+    <string name="edit_your_note_title_here">Edit your Note Title here</string>
+    <string name="edit_or_delete_note">Edit Or Delete Note</string>
+    <string name="note_title">Note Title</string>
+    <string name="note_description">Note Description</string>
+    <string name="_10_10_am">10:10 AM</string>
+    <string name="_07_10_2024">07/10/2024</string>
+    <string name="pick_a_time">Pick A Time</string>
+    <string name="pick_a_date">Pick A Date</string>
+    <string name="note_no">Note No:</string>
+    <string name="_0">0</string>
+    <string name="welcome_to_my_notes_app_n_store_your_all_notes_here">Welcome to My Notes App\n Store your all Notes here</string>
+    <string name="to_store_your_notes_n_please_login_or_register_first">To store your Notes,\n Please Login Or Register first!</string>
+    <string name="login">Login</string>
+    <string name="register">Register</string>
+    <string name="enter_your_email_address_here">Enter your Email Address here</string>
+    <string name="create_a_new_account">Create a new account</string>
+    <string name="login_here">Login Here</string>
+    <string name="welcome_back_n_you_ve_been_missed">Welcome back\n You\'ve been missed!</string>
+    <string name="enter_your_password_here">Enter your Password here</string>
+    <string name="forgot_your_password">Forgot your Password?</string>
+    <string name="register_here">Register Here</string>
+    <string name="create_an_account_n_so_you_can_store_your_notes">Create an Account \n So you can store your Notes!</string>
+    <string name="already_have_an_account">Already have an Account</string>
+    <string name="enter_your_user_name_here">Enter your User Name here</string>
+    <string name="logout">Logout</string>
+    <string name="enter_your_note_number_here">Enter your Note Number here</string>
+    <string name="edit_your_note_number_here">Edit your Note Number here</string>
+    <string name="design_by">Design By</string>
+    <string name="jubayer_ahamad_tayef">Jubayer Ahamad Tayef</string>
+    <string name="exit">Exit</string>
+</resources>

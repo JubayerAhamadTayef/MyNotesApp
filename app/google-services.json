@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1032351816899",
+    "project_id": "notes-app-bfc5c",
+    "storage_bucket": "notes-app-bfc5c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1032351816899:android:ad2da7f38d8a0d597d1676",
+        "android_client_info": {
+          "package_name": "com.jubayer_ahamad_tayef.notes_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCGjM5zUCg5WiTDjs2Om8-kUamxbUt3azc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

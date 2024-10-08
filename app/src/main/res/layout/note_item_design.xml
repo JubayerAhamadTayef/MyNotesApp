@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="5dp"
+        android:layout_marginVertical="5dp"
+        android:background="@drawable/notes_background"
+        android:orientation="vertical">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginHorizontal="2dp"
+            android:layout_marginTop="2dp"
+            android:background="@drawable/text_view_background"
+            android:backgroundTint="@color/blue"
+            android:padding="5dp">
+
+
+            <ImageView
+                android:id="@+id/timeIcon"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_marginStart="5dp"
+                android:src="@drawable/baseline_access_time_24"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:fontFamily="@font/my_favourite_font"
+                android:text="@string/_10_10_am"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="@id/timeIcon"
+                app:layout_constraintStart_toEndOf="@id/timeIcon"
+                app:layout_constraintTop_toTopOf="@id/timeIcon" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/date"
+                app:layout_constraintStart_toEndOf="@id/time"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/note_no" />
+
+                <TextView
+                    android:id="@+id/note_no"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/_0" />
+            </LinearLayout>
+
+            <ImageView
+                android:id="@+id/dateIcon"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_marginEnd="5dp"
+                android:src="@drawable/baseline_calendar_month_24"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="5dp"
+                android:text="@string/_07_10_2024"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="@id/dateIcon"
+                app:layout_constraintEnd_toStartOf="@id/dateIcon"
+                app:layout_constraintTop_toTopOf="@id/dateIcon" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <TextView
+            android:id="@+id/noteTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="5dp"
+            android:backgroundTint="@android:color/transparent"
+            android:padding="10dp"
+            android:text="@string/note_title"
+            android:textColor="@color/blue"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/date"
+            app:layout_constraintStart_toEndOf="@id/time"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/noteDescription"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="5dp"
+            android:layout_marginBottom="2dp"
+            android:backgroundTint="@android:color/transparent"
+            android:padding="10dp"
+            android:text="@string/note_description"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/noteTitle" />
+    </LinearLayout>
+</layout>
