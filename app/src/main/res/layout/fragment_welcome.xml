@@ -3,15 +3,23 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        android:isScrollContainer="true"
+        android:scrollbars="none"
+        tools:context=".fragments.WelcomeFragment">
+
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            tools:context=".fragments.WelcomeFragment">
+            android:layout_height="0dp">
 
             <ImageView
                 android:id="@+id/welcomeImage"
                 android:layout_width="350dp"
                 android:layout_height="350dp"
+                android:layout_marginVertical="10dp"
                 android:scaleType="centerCrop"
                 android:src="@drawable/welcome_image"
                 app:layout_constraintBottom_toTopOf="@+id/textGroupLinerLayout"
@@ -23,6 +31,7 @@
                 android:id="@+id/textGroupLinerLayout"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
                 android:gravity="center"
                 android:orientation="vertical"
                 app:layout_constraintBottom_toTopOf="@+id/loginButton"
@@ -40,7 +49,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
+                    android:layout_marginVertical="20dp"
                     android:text="@string/to_store_your_notes_n_please_login_or_register_first"
                     android:textColor="@color/black" />
 
@@ -71,21 +80,22 @@
                 android:text="@string/register"
                 android:textColor="@color/white"
                 android:textSize="20sp"
-                app:layout_constraintBottom_toTopOf="@id/designerInformation"
+                app:layout_constraintBottom_toBottomOf="@id/loginButton"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/loginButton"
-                app:layout_constraintTop_toBottomOf="@+id/textGroupLinerLayout" />
+                app:layout_constraintTop_toTopOf="@+id/loginButton" />
 
             <LinearLayout
                 android:id="@+id/designerInformation"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@id/loginButton"
+                android:layout_marginVertical="10dp"
                 android:gravity="center"
                 android:orientation="vertical"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent">
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/loginButton">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -100,5 +110,9 @@
                     android:textColor="@color/blue" />
 
             </LinearLayout>
+
         </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
+
 </layout>

@@ -3,17 +3,25 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        android:isScrollContainer="true"
+        android:scrollbars="none"
+        tools:context=".fragments.RegisterFragment">
+
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            tools:context=".fragments.RegisterFragment">
+            android:layout_height="0dp">
 
             <ImageView
                 android:id="@+id/appLogo"
                 android:layout_width="250dp"
                 android:layout_height="200dp"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="16dp"
                 android:src="@drawable/app_logo"
+                app:layout_constraintBottom_toTopOf="@id/linearLayout"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -22,7 +30,7 @@
                 android:id="@+id/linearLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
+                android:layout_marginVertical="10dp"
                 android:gravity="center"
                 android:orientation="vertical"
                 app:layout_constraintBottom_toTopOf="@id/designerInformation"
@@ -34,6 +42,7 @@
                     android:id="@+id/registerHere"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
                     android:text="@string/register_here"
                     android:textColor="@color/blue"
                     android:textSize="30sp" />
@@ -48,29 +57,43 @@
                     android:textColor="@color/black" />
 
                 <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/userNameEditTextLayout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="10dp"
                     android:layout_marginVertical="10dp"
-                    android:hint="@string/enter_your_user_name_here"
+                    app:boxStrokeWidth="0dp"
+                    app:boxStrokeWidthFocused="0dp"
+                    app:errorIconTint="@color/red"
+                    app:errorTextColor="@color/red"
+                    app:helperTextTextColor="@color/red"
+                    app:hintEnabled="false"
                     app:startIconDrawable="@drawable/baseline_person_24"
                     app:startIconTint="@color/blue">
 
                     <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/userEditText"
+                        android:id="@+id/userNameEditText"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:background="@drawable/edit_text_background"
+                        android:hint="@string/enter_your_user_name_here"
                         android:inputType="text"
                         android:textAlignment="textStart" />
 
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/emailEditTextLayout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="10dp"
                     android:layout_marginVertical="10dp"
-                    android:hint="@string/enter_your_email_address_here"
+                    app:boxStrokeWidth="0dp"
+                    app:boxStrokeWidthFocused="0dp"
+                    app:errorIconTint="@color/red"
+                    app:errorTextColor="@color/red"
+                    app:helperTextTextColor="@color/red"
+                    app:hintEnabled="false"
                     app:startIconDrawable="@drawable/baseline_email_24"
                     app:startIconTint="@color/blue">
 
@@ -78,17 +101,23 @@
                         android:id="@+id/emailEditText"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:background="@drawable/edit_text_background"
+                        android:hint="@string/enter_your_email_address_here"
                         android:inputType="textEmailAddress"
                         android:textAlignment="textStart" />
 
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/passwordEditTextLayout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="10dp"
                     android:layout_marginVertical="10dp"
-                    android:hint="@string/enter_your_password_here"
+                    app:boxStrokeWidth="0dp"
+                    app:boxStrokeWidthFocused="0dp"
+                    app:helperTextTextColor="@color/red"
+                    app:hintEnabled="false"
                     app:passwordToggleEnabled="true"
                     app:passwordToggleTint="@color/blue"
                     app:startIconDrawable="@drawable/baseline_lock_24"
@@ -98,6 +127,8 @@
                         android:id="@+id/passwordEditText"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:background="@drawable/edit_text_background"
+                        android:hint="@string/enter_your_password_here"
                         android:inputType="textPassword"
                         android:textAlignment="textStart" />
 
@@ -120,7 +151,7 @@
                     android:id="@+id/alreadyHaveAccount"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginVertical="10dp"
                     android:layout_marginEnd="10dp"
                     android:text="@string/already_have_an_account"
                     android:textColor="@color/black" />
@@ -131,12 +162,13 @@
                 android:id="@+id/designerInformation"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
                 android:gravity="center"
                 android:orientation="vertical"
-                app:layout_constraintTop_toBottomOf="@id/linearLayout"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent">
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/linearLayout">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -153,4 +185,7 @@
             </LinearLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
+
 </layout>

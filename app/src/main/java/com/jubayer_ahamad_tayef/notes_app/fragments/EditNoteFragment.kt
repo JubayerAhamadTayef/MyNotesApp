@@ -6,6 +6,8 @@ import android.app.DatePickerDialog
 import android.app.TimePickerDialog
 import android.icu.util.Calendar
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuInflater
@@ -50,7 +52,11 @@ class EditNoteFragment : Fragment(R.layout.fragment_edit_note), MenuProvider {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        (activity as MainActivity).supportActionBar?.setTitle("Edit Or Delete Note")
+        noteNumberFocusChangeListener()
+        noteTitleFocusChangeListener()
+        noteDescriptionFocusChangeListener()
+
+        (activity as MainActivity).supportActionBar?.title = getString(R.string.edit_or_delete_note)
 
         val menuHost: MenuHost = requireActivity()
         menuHost.addMenuProvider(this, viewLifecycleOwner, Lifecycle.State.RESUMED)
@@ -60,11 +66,11 @@ class EditNoteFragment : Fragment(R.layout.fragment_edit_note), MenuProvider {
 
         binding.apply {
 
-            editNoteNoEditText.setText(currentNote.noteNumber.toString())
+            editNoteNoEditText.setText(currentNote.noteNumber)
             editNoteTitleEditText.setText(currentNote.noteTitle)
             editNoteDescriptionEditText.setText(currentNote.noteDescription)
-            pickADate.setText(currentNote.noteDate)
-            pickATime.setText(currentNote.noteTime)
+            pickADate.text = currentNote.noteDate
+            pickATime.text = currentNote.noteTime
 
             pickADate.setOnClickListener {
 
@@ -83,15 +89,15 @@ class EditNoteFragment : Fragment(R.layout.fragment_edit_note), MenuProvider {
 
     private fun deleteNote() {
         AlertDialog.Builder(activity, R.style.CustomDatePickerDialog).apply {
-            setTitle("Delete Note")
-            setMessage("Do you want to delete this Note?")
-            setPositiveButton("Yes") { _, _ ->
+            setTitle(getString(R.string.delete_note))
+            setMessage(getString(R.string.do_you_want_to_delete_this_note))
+            setPositiveButton(getString(R.string.yes)) { _, _ ->
                 notesViewModel.deleteNote(currentNote)
-                Toast.makeText(context, "Note Deleted!", Toast.LENGTH_SHORT).show()
+                showToast(getString(R.string.note_deleted))
 
                 view?.findNavController()?.popBackStack(R.id.homeFragment, false)
             }
-            setNegativeButton("No", null)
+            setNegativeButton(getString(R.string.no), null)
         }.create().show()
     }
 
@@ -127,28 +133,23 @@ class EditNoteFragment : Fragment(R.layout.fragment_edit_note), MenuProvider {
             val noteDate = pickADate.text.toString().trim()
             val noteTime = pickATime.text.toString().trim()
 
+            editNoteNoEditTextLayout.error = isNoteNumberValid()
+            editNoteTitleEditTextLayout.error = isNoteTitleValid()
+            editNoteDescriptionEditTextLayout.error = isNoteDescriptionValid()
+
             if (noteNumber.isNotEmpty() && noteTitle.isNotEmpty() && noteDescription.isNotEmpty()) {
 
                 val note = Note(
-                    currentNote.id,
-                    noteNumber,
-                    noteTitle,
-                    noteDescription,
-                    noteDate,
-                    noteTime
+                    currentNote.id, noteNumber, noteTitle, noteDescription, noteDate, noteTime
                 )
                 notesViewModel.updateNote(note)
-                Toast.makeText(context, "Note Updated!", Toast.LENGTH_SHORT).show()
+                showToast(getString(R.string.note_updated))
 
                 view?.findNavController()?.popBackStack(R.id.homeFragment, false)
 
             } else {
 
-                Toast.makeText(
-                    context,
-                    "Please, Must be enter Note Number, Note Title and also Note Description. Then click again Update Note!",
-                    Toast.LENGTH_SHORT
-                ).show()
+                showToast(getString(R.string.please_must_be_enter_note_number_note_title_and_also_note_description_then_click_again_update_note))
 
             }
         }
@@ -156,51 +157,144 @@ class EditNoteFragment : Fragment(R.layout.fragment_edit_note), MenuProvider {
 
     private fun pickADate() {
 
-        val day = calendar.get(Calendar.DAY_OF_MONTH)
-        val month = calendar.get(Calendar.MONTH)
-        val year = calendar.get(Calendar.YEAR)
+        val currentDay = calendar.get(Calendar.DAY_OF_MONTH)
+        val currentMonth = calendar.get(Calendar.MONTH)
+        val currentYear = calendar.get(Calendar.YEAR)
 
         DatePickerDialog(
             requireActivity(),
             R.style.CustomDatePickerDialog,
-            DatePickerDialog.OnDateSetListener { datePicker, year, month, day ->
-                showDate = "$day/${month + 1}/$year"
-                binding.pickADate.setText(showDate)
+            DatePickerDialog.OnDateSetListener { _, selectedYear, selectedMonth, selectedDay ->
+                showDate = "$selectedDay/${selectedMonth + 1}/$selectedYear"
+                binding.pickADate.text = showDate
             },
-            year,
-            month,
-            day
+            currentYear,
+            currentMonth,
+            currentDay
         ).show()
 
     }
 
     @SuppressLint("SimpleDateFormat")
     private fun pickATime() {
-        val hour = calendar.get(Calendar.HOUR_OF_DAY)
-        val minute = calendar.get(Calendar.MINUTE)
+        val currentHour = calendar.get(Calendar.HOUR_OF_DAY)
+        val currentMinute = calendar.get(Calendar.MINUTE)
 
         TimePickerDialog(
             requireActivity(),
             R.style.CustomTimePickerDialog,
-            TimePickerDialog.OnTimeSetListener { timePicker, hour, minute ->
-                calendar.set(Calendar.HOUR_OF_DAY, hour)
-                calendar.set(Calendar.MINUTE, minute)
+            TimePickerDialog.OnTimeSetListener { timePicker, selectedHour, selectedMinute ->
+                calendar.set(Calendar.HOUR_OF_DAY, selectedHour)
+                calendar.set(Calendar.MINUTE, selectedMinute)
 
-                val timeFormatAmPm = SimpleDateFormat("hh:mm aa")
-                val timeFormat24Hour = SimpleDateFormat("HH:mm")
+                val timeFormatAmPm = SimpleDateFormat(getString(R.string.hh_mm_aa))
+                val timeFormat24Hour = SimpleDateFormat(getString(R.string.hh_mm))
 
                 showTime = when (timePicker.is24HourView) {
                     true -> timeFormat24Hour.format(calendar.time)
                     false -> timeFormatAmPm.format(calendar.time)
                 }
 
-                binding.pickATime.setText(showTime)
+                binding.pickATime.text = showTime
 
             },
-            hour,
-            minute,
+            currentHour,
+            currentMinute,
             false
         ).show()
+    }
+
+    private fun noteNumberFocusChangeListener() {
+        binding.editNoteNoEditText.setOnFocusChangeListener { _, hasFocus ->
+            if (!hasFocus) {
+                binding.editNoteNoEditTextLayout.error = isNoteNumberValid()
+            }
+            noteNumberTextChangeListener()
+        }
+    }
+
+    private fun noteNumberTextChangeListener() {
+        binding.editNoteNoEditText.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                binding.editNoteNoEditTextLayout.error = isNoteNumberValid()
+            }
+
+            override fun afterTextChanged(p0: Editable?) {}
+        })
+    }
+
+    private fun isNoteNumberValid(): CharSequence? {
+        val noteNumber = binding.editNoteNoEditText.text.toString().trim()
+        return when {
+            noteNumber.isBlank() -> getString(R.string.note_number_is_required)
+            noteNumber.isNotBlank() -> null
+            else -> getString(R.string.invalid_note_number)
+        }
+    }
+
+    private fun noteTitleFocusChangeListener() {
+        binding.editNoteTitleEditText.setOnFocusChangeListener { _, hasFocus ->
+            if (!hasFocus) {
+                binding.editNoteTitleEditTextLayout.error = isNoteTitleValid()
+            }
+            noteTitleTextChangeListener()
+        }
+    }
+
+    private fun noteTitleTextChangeListener() {
+        binding.editNoteTitleEditText.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                binding.editNoteTitleEditTextLayout.error = isNoteTitleValid()
+            }
+
+            override fun afterTextChanged(p0: Editable?) {}
+        })
+    }
+
+    private fun isNoteTitleValid(): CharSequence? {
+        val noteTitle = binding.editNoteTitleEditText.text.toString().trim()
+        return when {
+            noteTitle.isBlank() -> getString(R.string.note_title_is_required)
+            noteTitle.isNotBlank() -> null
+            else -> getString(R.string.invalid_note_title)
+        }
+    }
+
+    private fun noteDescriptionFocusChangeListener() {
+        binding.editNoteDescriptionEditText.setOnFocusChangeListener { _, hasFocus ->
+            if (!hasFocus) {
+                binding.editNoteDescriptionEditTextLayout.error = isNoteDescriptionValid()
+            }
+            noteDescriptionTextChangeListener()
+        }
+    }
+
+    private fun noteDescriptionTextChangeListener() {
+        binding.editNoteDescriptionEditText.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                binding.editNoteDescriptionEditTextLayout.error = isNoteDescriptionValid()
+            }
+
+            override fun afterTextChanged(p0: Editable?) {}
+        })
+    }
+
+    private fun isNoteDescriptionValid(): CharSequence? {
+        val noteDescription = binding.editNoteDescriptionEditText.text.toString().trim()
+        return when {
+            noteDescription.isBlank() -> getString(R.string.note_description_is_required)
+            noteDescription.isNotBlank() -> null
+            else -> getString(R.string.invalid_note_description)
+        }
+    }
+
+    private fun showToast(message: String) {
+        if (isAdded && context != null) {
+            Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
+        }
     }
 
     override fun onDestroy() {
