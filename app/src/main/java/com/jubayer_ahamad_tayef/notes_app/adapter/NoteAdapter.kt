@@ -1,7 +1,10 @@
 package com.jubayer_ahamad_tayef.notes_app.adapter
 
+import android.content.Context
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AnimationUtils
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
@@ -10,7 +13,10 @@ import com.jubayer_ahamad_tayef.notes_app.databinding.NoteItemDesignBinding
 import com.jubayer_ahamad_tayef.notes_app.fragments.HomeFragmentDirections
 import com.jubayer_ahamad_tayef.notes_app.model.Note
 
-class NoteAdapter : RecyclerView.Adapter<NoteAdapter.NoteViewHolder>() {
+class NoteAdapter(var context: Context) : RecyclerView.Adapter<NoteAdapter.NoteViewHolder>() {
+
+    private var lastPosition = -1;
+
     class NoteViewHolder(val itemBinding: NoteItemDesignBinding) :
         RecyclerView.ViewHolder(itemBinding.root)
 
@@ -44,6 +50,7 @@ class NoteAdapter : RecyclerView.Adapter<NoteAdapter.NoteViewHolder>() {
         holder.itemBinding.noteNo.text = currentNote.noteNumber
         holder.itemBinding.noteTitle.text = currentNote.noteTitle
         holder.itemBinding.noteDescription.text = currentNote.noteDescription
+        setAnimation(holder.itemView, position)
 
         holder.itemView.setOnClickListener {
 
@@ -52,4 +59,14 @@ class NoteAdapter : RecyclerView.Adapter<NoteAdapter.NoteViewHolder>() {
         }
 
     }
+
+    private fun setAnimation(viewToAnimate: View, position: Int) {
+
+        if (position > lastPosition) {
+            val animation = AnimationUtils.loadAnimation(context, android.R.anim.slide_in_left)
+            viewToAnimate.startAnimation(animation)
+            lastPosition = position
+        }
+    }
+
 }

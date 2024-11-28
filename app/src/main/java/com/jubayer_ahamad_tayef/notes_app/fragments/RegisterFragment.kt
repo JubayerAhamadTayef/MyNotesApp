@@ -65,6 +65,7 @@ class RegisterFragment : Fragment() {
         if (isUserNameValid == null && isEmailValid == null && isPasswordStrong == null) {
             lifecycleScope.launch {
                 if (isConnected(requireContext())) {
+                    showProgressBar(true)
                     signUpUser(
                         binding.userNameEditText.text.toString().trim(),
                         binding.emailEditText.text.toString().trim(),
@@ -200,6 +201,8 @@ class RegisterFragment : Fragment() {
                 }
             } catch (e: Exception) {
                 showToast(e.message ?: getString(R.string.unknown_error))
+            } finally {
+                showProgressBar(false)
             }
         }
     }
@@ -242,6 +245,11 @@ class RegisterFragment : Fragment() {
         if (isAdded && context != null) {
             Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
         }
+    }
+
+    private fun showProgressBar(show: Boolean) {
+        binding.loading.visibility = if (show) View.VISIBLE else View.GONE
+        binding.registerPage.visibility = if (show) View.GONE else View.VISIBLE
     }
 
     private fun isConnected(context: Context): Boolean {

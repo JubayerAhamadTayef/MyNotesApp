@@ -42,6 +42,7 @@ class WelcomeFragment : Fragment() {
 
         lifecycleScope.launch {
             if (isConnected(requireContext())) {
+                showProgressBar(true)
                 checkUserStatus()
             } else {
                 noInternet()
@@ -59,7 +60,13 @@ class WelcomeFragment : Fragment() {
         }
     }
 
+    private fun showProgressBar(show: Boolean) {
+        binding.loading.visibility = if (show) View.VISIBLE else View.GONE
+        binding.welcomePage.visibility = if (show) View.GONE else View.VISIBLE
+    }
+
     private fun noInternet() {
+        showProgressBar(false)
         showToast(getString(R.string.no_internet_connection_please_connect_to_internet))
     }
 
@@ -89,6 +96,7 @@ class WelcomeFragment : Fragment() {
                 showVerificationAlertDialog()
             }
         }
+        showProgressBar(false)
     }
 
     private suspend fun isEmailVerified(user: FirebaseUser): Boolean {
@@ -112,9 +120,11 @@ class WelcomeFragment : Fragment() {
             .setPositiveButton(getString(R.string.resend_verification_email)) { dialog, _ ->
                 sendVerificationEmail()
                 dialog.dismiss()
-            }.setNegativeButton(getString(R.string.cancel)) { dialog, _ ->
+            }
+            .setNegativeButton(getString(R.string.cancel)) { dialog, _ ->
                 dialog.dismiss()
-            }.show()
+            }
+            .show()
     }
 
     private fun sendVerificationEmail() {

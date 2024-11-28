@@ -108,7 +108,7 @@ class LoginFragment : Fragment() {
         })
     }
 
-    private fun isPasswordStrong(): String? {
+    private fun isPasswordStrong(): CharSequence? {
         val password = binding.passwordEditText.text.toString().trim()
         return when {
             password.isBlank() -> getString(R.string.password_required)
@@ -156,6 +156,7 @@ class LoginFragment : Fragment() {
     private fun loginUser(email: String, password: String) {
         lifecycleScope.launch {
             if (isConnected(requireContext())) {
+                showProgressBar(true)
                 try {
                     val user = signInWithEmailAndPassword(email, password)
                     if (user != null && user.isEmailVerified) {
@@ -168,6 +169,8 @@ class LoginFragment : Fragment() {
                     }
                 } catch (e: Exception) {
                     showToast(e.message ?: getString(R.string.unknown_error))
+                } finally {
+                    showProgressBar(false)
                 }
             } else {
                 showToast(getString(R.string.no_internet_connection_please_connect_to_internet))
@@ -188,6 +191,11 @@ class LoginFragment : Fragment() {
                 }
             }
         }
+    }
+
+    private fun showProgressBar(show: Boolean) {
+        binding.loading.visibility = if (show) View.VISIBLE else View.GONE
+        binding.loginPage.visibility = if (show) View.GONE else View.VISIBLE
     }
 
     private fun isConnected(context: Context): Boolean {

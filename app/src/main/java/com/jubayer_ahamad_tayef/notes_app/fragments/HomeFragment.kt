@@ -1,6 +1,7 @@
 package com.jubayer_ahamad_tayef.notes_app.fragments
 
 import android.app.AlertDialog
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.Menu
@@ -85,7 +86,7 @@ class HomeFragment : Fragment(R.layout.fragment_home), SearchView.OnQueryTextLis
     }
 
     private fun setupHomeRecyclerView() {
-        noteAdapter = NoteAdapter()
+        noteAdapter = NoteAdapter(requireContext())
         binding.recyclerView.apply {
 
             setHasFixedSize(true)
