@@ -52,6 +52,13 @@ class NoteAdapter(var context: Context) : RecyclerView.Adapter<NoteAdapter.NoteV
         holder.itemBinding.noteDescription.text = currentNote.noteDescription
         setAnimation(holder.itemView, position)
 
+        if (currentNote.noteDate?.isBlank() == true){
+            holder.itemBinding.dateIcon.visibility = View.GONE
+        }
+        if (currentNote.noteTime?.isBlank() == true){
+            holder.itemBinding.timeIcon.visibility = View.GONE
+        }
+
         holder.itemView.setOnClickListener {
 
             it.findNavController()
