@@ -84,9 +84,9 @@ class AddNoteFragment : Fragment(R.layout.fragment_add_note), MenuProvider {
         val noteDate = binding.pickADate.text.toString().trim()
         val noteTime = binding.pickATime.text.toString().trim()
 
-        binding.addNoteNoEditTextLayout.error = isNoteNumberValid()
-        binding.addNoteTitleEditTextLayout.error = isNoteTitleValid()
-        binding.addNoteDescriptionEditTextLayout.error = isNoteDescriptionValid()
+        binding.addNoteNoEditTextLayout.helperText = isNoteNumberValid()
+        binding.addNoteTitleEditTextLayout.helperText = isNoteTitleValid()
+        binding.addNoteDescriptionEditTextLayout.helperText = isNoteDescriptionValid()
 
         if (noteNumber.isNotEmpty() && noteTitle.isNotEmpty() && noteDescription.isNotEmpty()) {
 
@@ -155,7 +155,7 @@ class AddNoteFragment : Fragment(R.layout.fragment_add_note), MenuProvider {
     private fun noteNumberFocusChangeListener() {
         binding.addNoteNoEditText.setOnFocusChangeListener { _, hasFocus ->
             if (!hasFocus) {
-                binding.addNoteNoEditTextLayout.error = isNoteNumberValid()
+                binding.addNoteNoEditTextLayout.helperText = isNoteNumberValid()
             }
             noteNumberTextChangeListener()
         }
@@ -165,7 +165,7 @@ class AddNoteFragment : Fragment(R.layout.fragment_add_note), MenuProvider {
         binding.addNoteNoEditText.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                binding.addNoteNoEditTextLayout.error = isNoteNumberValid()
+                binding.addNoteNoEditTextLayout.helperText = isNoteNumberValid()
             }
 
             override fun afterTextChanged(p0: Editable?) {}
@@ -184,7 +184,7 @@ class AddNoteFragment : Fragment(R.layout.fragment_add_note), MenuProvider {
     private fun noteTitleFocusChangeListener() {
         binding.addNoteTitleEditText.setOnFocusChangeListener { _, hasFocus ->
             if (!hasFocus) {
-                binding.addNoteTitleEditTextLayout.error = isNoteTitleValid()
+                binding.addNoteTitleEditTextLayout.helperText = isNoteTitleValid()
             }
             noteTitleTextChangeListener()
         }
@@ -194,7 +194,7 @@ class AddNoteFragment : Fragment(R.layout.fragment_add_note), MenuProvider {
         binding.addNoteTitleEditText.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                binding.addNoteTitleEditTextLayout.error = isNoteTitleValid()
+                binding.addNoteTitleEditTextLayout.helperText = isNoteTitleValid()
             }
 
             override fun afterTextChanged(p0: Editable?) {}
@@ -213,7 +213,7 @@ class AddNoteFragment : Fragment(R.layout.fragment_add_note), MenuProvider {
     private fun noteDescriptionFocusChangeListener() {
         binding.addNoteDescriptionEditText.setOnFocusChangeListener { _, hasFocus ->
             if (!hasFocus) {
-                binding.addNoteDescriptionEditTextLayout.error = isNoteDescriptionValid()
+                binding.addNoteDescriptionEditTextLayout.helperText = isNoteDescriptionValid()
             }
             noteDescriptionTextChangeListener()
         }
@@ -223,7 +223,7 @@ class AddNoteFragment : Fragment(R.layout.fragment_add_note), MenuProvider {
         binding.addNoteDescriptionEditText.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                binding.addNoteDescriptionEditTextLayout.error = isNoteDescriptionValid()
+                binding.addNoteDescriptionEditTextLayout.helperText = isNoteDescriptionValid()
             }
 
             override fun afterTextChanged(p0: Editable?) {}

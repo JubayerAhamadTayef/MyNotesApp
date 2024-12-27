@@ -6,6 +6,7 @@ import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -41,11 +42,18 @@ class WelcomeFragment : Fragment() {
         (activity as MainActivity).supportActionBar?.title = getString(R.string.welcome)
 
         lifecycleScope.launch {
-            if (isConnected(requireContext())) {
-                showProgressBar(true)
-                checkUserStatus()
-            } else {
-                noInternet()
+            try {
+                if (isConnected(requireContext())) {
+                    showProgressBar(true)
+                    checkUserStatus()
+                } else {
+                    noInternet()
+                }
+            } catch (e: Exception) {
+                // Log the error
+                Log.e("WelcomeFragment", "Error: ", e)
+                showToast(getString(R.string.no_internet_connection_please_connect_to_internet))
+                showProgressBar(false)
             }
         }
 
@@ -120,11 +128,9 @@ class WelcomeFragment : Fragment() {
             .setPositiveButton(getString(R.string.resend_verification_email)) { dialog, _ ->
                 sendVerificationEmail()
                 dialog.dismiss()
-            }
-            .setNegativeButton(getString(R.string.cancel)) { dialog, _ ->
+            }.setNegativeButton(getString(R.string.cancel)) { dialog, _ ->
                 dialog.dismiss()
-            }
-            .show()
+            }.show()
     }
 
     private fun sendVerificationEmail() {

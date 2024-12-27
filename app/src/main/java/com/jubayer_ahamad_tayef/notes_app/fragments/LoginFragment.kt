@@ -60,6 +60,7 @@ class LoginFragment : Fragment() {
                 if (isEmailValid() == null) {
                     sendPasswordResetEmail(email)
                 } else {
+                    emailEditTextLayout.error = isEmailValid()
                     showToast(getString(R.string.enter_valid_email))
                 }
             }
