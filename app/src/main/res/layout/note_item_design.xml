@@ -35,7 +35,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="5dp"
-                android:fontFamily="@font/my_favourite_font"
                 android:text="@string/_10_10_am"
                 android:textColor="@color/white"
                 android:textStyle="bold"

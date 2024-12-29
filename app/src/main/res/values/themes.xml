@@ -16,7 +16,7 @@
         <!-- Customize your light theme here. -->
 
         <!-- Text Style -->
-        <item name="android:fontFamily">@font/my_favourite_font</item>
+        <item name="android:fontFamily">sans-serif</item>
         <item name="android:textStyle">bold</item>
         <item name="android:textColor">@color/white</item>
         <item name="android:textAllCaps">false</item>
