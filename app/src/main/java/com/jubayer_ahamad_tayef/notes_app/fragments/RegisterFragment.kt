@@ -15,6 +15,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
@@ -35,6 +36,7 @@ class RegisterFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
         registerBinding = FragmentRegisterBinding.inflate(inflater, container, false)
+        (activity as MainActivity).showActionBar(false)
         return binding.root
     }
 
@@ -45,11 +47,13 @@ class RegisterFragment : Fragment() {
         userEmailFocusChangeListener()
         userPasswordFocusChangeListener()
 
-        (activity as MainActivity).supportActionBar?.title = getString(R.string.register_please)
-
         binding.apply {
             alreadyHaveAccount.setOnClickListener {
-                findNavController().navigate(R.id.action_registerFragment_to_loginFragment)
+                findNavController().navigate(
+                    R.id.action_registerFragment_to_loginFragment,
+                    null,
+                    NavOptions.Builder().setPopUpTo(R.id.registerFragment, true).build()
+                )
             }
             registerButton.setOnClickListener {
                 validateForm()

@@ -37,6 +37,7 @@ class HomeFragment : Fragment(R.layout.fragment_home), SearchView.OnQueryTextLis
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
         homeBinding = FragmentHomeBinding.inflate(inflater, container, false)
+        (activity as MainActivity).showActionBar(true)
         return binding.root
     }
 

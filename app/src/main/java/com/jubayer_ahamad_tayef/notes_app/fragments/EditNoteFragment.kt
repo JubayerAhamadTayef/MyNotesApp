@@ -46,6 +46,7 @@ class EditNoteFragment : Fragment(R.layout.fragment_edit_note), MenuProvider {
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
         editNoteBinding = FragmentEditNoteBinding.inflate(inflater, container, false)
+        (activity as MainActivity).showActionBar(true)
         return binding.root
     }
 

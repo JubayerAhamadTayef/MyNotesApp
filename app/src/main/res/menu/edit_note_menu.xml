@@ -11,6 +11,6 @@
         android:id="@+id/deleteMenu"
         android:icon="@drawable/baseline_delete_24"
         android:title=""
-        app:showAsAction="always" />
+        app:showAsAction="ifRoom" />
 
 </menu>

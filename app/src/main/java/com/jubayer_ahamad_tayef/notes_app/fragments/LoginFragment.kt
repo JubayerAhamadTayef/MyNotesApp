@@ -15,6 +15,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
@@ -35,6 +36,7 @@ class LoginFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
         loginBinding = FragmentLoginBinding.inflate(inflater, container, false)
+        (activity as MainActivity).showActionBar(false)
         return binding.root
     }
 
@@ -44,11 +46,13 @@ class LoginFragment : Fragment() {
         userEmailFocusChangeListener()
         userPasswordFocusChangeListener()
 
-        (activity as MainActivity).supportActionBar?.title = getString(R.string.login_please)
-
         binding.apply {
             createNewAccount.setOnClickListener {
-                findNavController().navigate(R.id.action_loginFragment_to_registerFragment)
+                findNavController().navigate(
+                    R.id.action_loginFragment_to_registerFragment,
+                    null,
+                    NavOptions.Builder().setPopUpTo(R.id.loginFragment, true).build()
+                )
             }
 
             loginButton.setOnClickListener {

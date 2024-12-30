@@ -42,6 +42,7 @@ class AddNoteFragment : Fragment(R.layout.fragment_add_note), MenuProvider {
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
         addNoteBinding = FragmentAddNoteBinding.inflate(inflater, container, false)
+        (activity as MainActivity).showActionBar(true)
         return binding.root
     }
 

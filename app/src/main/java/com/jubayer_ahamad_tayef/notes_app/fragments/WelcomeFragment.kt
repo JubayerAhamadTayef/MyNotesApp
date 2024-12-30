@@ -33,13 +33,12 @@ class WelcomeFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
         welcomeBinding = FragmentWelcomeBinding.inflate(inflater, container, false)
+        (activity as MainActivity).showActionBar(false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        (activity as MainActivity).supportActionBar?.title = getString(R.string.welcome)
 
         lifecycleScope.launch {
             try {

@@ -60,6 +60,10 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    fun showActionBar(show: Boolean) {
+        if (show) supportActionBar?.show() else supportActionBar?.hide()
+    }
+
     override fun onDestroy() {
         super.onDestroy()
         mainBinding = null

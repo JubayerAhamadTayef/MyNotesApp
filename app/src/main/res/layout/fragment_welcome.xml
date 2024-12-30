@@ -8,6 +8,7 @@
         android:layout_height="match_parent"
         android:fillViewport="true"
         android:isScrollContainer="true"
+        android:background="@color/white"
         android:scrollbars="none"
         tools:context=".fragments.WelcomeFragment">
 
@@ -17,8 +18,8 @@
 
             <LinearLayout
                 android:id="@+id/loading"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
                 android:gravity="center"
                 android:orientation="vertical"
                 android:visibility="gone"
@@ -38,7 +39,7 @@
                     android:id="@+id/pleaseWait"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Please, wait..."
+                    android:text="@string/please_wait"
                     android:textColor="@color/blue"
                     android:textSize="20sp"
                     android:textStyle="bold" />
@@ -54,9 +55,9 @@
                     android:id="@+id/welcomeImage"
                     android:layout_width="350dp"
                     android:layout_height="350dp"
-                    android:layout_marginVertical="10dp"
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/welcome_image"
+                    android:scaleType="fitXY"
+                    android:layout_margin="10dp"
+                    android:src="@drawable/welcome_image_crop"
                     app:layout_constraintBottom_toTopOf="@+id/textGroupLinerLayout"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -77,9 +78,10 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="10dp"
                         android:text="@string/welcome_to_my_notes_app_n_store_your_all_notes_here"
                         android:textColor="@color/blue"
-                        android:textSize="30sp" />
+                        android:textSize="28sp" />
 
                     <TextView
                         android:layout_width="wrap_content"

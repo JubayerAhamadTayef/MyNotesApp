@@ -90,4 +90,5 @@
     <string name="hh_mm_aa">hh:mm aa</string>
     <string name="hh_mm">HH:mm</string>
     <string name="note_saved">Note Saved</string>
+    <string name="please_wait">Please, wait...</string>
 </resources>
