@@ -44,7 +44,7 @@ class EditNoteFragment : Fragment(R.layout.fragment_edit_note), MenuProvider {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         editNoteBinding = FragmentEditNoteBinding.inflate(inflater, container, false)
         (activity as MainActivity).showActionBar(true)
         return binding.root
@@ -127,33 +127,49 @@ class EditNoteFragment : Fragment(R.layout.fragment_edit_note), MenuProvider {
     }
 
     private fun updateNote() {
-        binding.apply {
-            val noteNumber = editNoteNoEditText.text.toString().trim()
-            val noteTitle = editNoteTitleEditText.text.toString().trim()
-            val noteDescription = editNoteDescriptionEditText.text.toString().trim()
-            val noteDate = pickADate.text.toString().trim()
-            val noteTime = pickATime.text.toString().trim()
+        AlertDialog.Builder(activity, R.style.CustomDatePickerDialog).apply {
+            setTitle(getString(R.string.update_note))
+            setMessage(getString(R.string.do_you_want_to_delete_this_note))
 
-            editNoteNoEditTextLayout.helperText = isNoteNumberValid()
-            editNoteTitleEditTextLayout.helperText = isNoteTitleValid()
-            editNoteDescriptionEditTextLayout.helperText = isNoteDescriptionValid()
+            setPositiveButton(getString(R.string.yes)) { _, _ ->
 
-            if (noteNumber.isNotEmpty() && noteTitle.isNotEmpty() && noteDescription.isNotEmpty()) {
+                binding.apply {
+                    val noteNumber = editNoteNoEditText.text.toString().trim()
+                    val noteTitle = editNoteTitleEditText.text.toString().trim()
+                    val noteDescription = editNoteDescriptionEditText.text.toString().trim()
+                    val noteDate = pickADate.text.toString().trim()
+                    val noteTime = pickATime.text.toString().trim()
 
-                val note = Note(
-                    currentNote.id, noteNumber, noteTitle, noteDescription, noteDate, noteTime
-                )
-                notesViewModel.updateNote(note)
-                showToast(getString(R.string.note_updated))
+                    editNoteNoEditTextLayout.helperText = isNoteNumberValid()
+                    editNoteTitleEditTextLayout.helperText = isNoteTitleValid()
+                    editNoteDescriptionEditTextLayout.helperText = isNoteDescriptionValid()
+
+                    if (noteNumber.isNotEmpty() && noteTitle.isNotEmpty() && noteDescription.isNotEmpty()) {
+
+                        val note = Note(
+                            currentNote.id,
+                            noteNumber,
+                            noteTitle,
+                            noteDescription,
+                            noteDate,
+                            noteTime
+                        )
+                        notesViewModel.updateNote(note)
+                        showToast(getString(R.string.note_updated))
+
+                        view?.findNavController()?.popBackStack(R.id.homeFragment, false)
+
+                    } else {
+
+                        showToast(getString(R.string.please_must_be_enter_note_number_note_title_and_also_note_description_then_click_again_update_note))
+
+                    }
+                }
 
                 view?.findNavController()?.popBackStack(R.id.homeFragment, false)
-
-            } else {
-
-                showToast(getString(R.string.please_must_be_enter_note_number_note_title_and_also_note_description_then_click_again_update_note))
-
             }
-        }
+            setNegativeButton(getString(R.string.no), null)
+        }.create().show()
     }
 
     private fun pickADate() {

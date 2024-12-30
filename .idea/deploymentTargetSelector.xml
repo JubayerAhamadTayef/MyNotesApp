@@ -4,10 +4,10 @@
     <selectionStates>
       <SelectionState runConfigName="app">
         <option name="selectionMode" value="DROPDOWN" />
-        <DropdownSelection timestamp="2024-12-30T06:19:03.667396100Z">
+        <DropdownSelection timestamp="2024-12-30T09:11:16.350213400Z">
           <Target type="DEFAULT_BOOT">
             <handle>
-              <DeviceId pluginId="LocalEmulator" identifier="path=C:\Users\jubay\.android\avd\Tayef_API_35.avd" />
+              <DeviceId pluginId="LocalEmulator" identifier="path=C:\Users\jubay\.android\avd\Jubayer_API_35.avd" />
             </handle>
           </Target>
         </DropdownSelection>
