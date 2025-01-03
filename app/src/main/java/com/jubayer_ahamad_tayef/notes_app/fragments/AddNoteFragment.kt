@@ -31,7 +31,6 @@ class AddNoteFragment : Fragment(R.layout.fragment_add_note), MenuProvider {
     private var addNoteBinding: FragmentAddNoteBinding? = null
     private val binding get() = addNoteBinding!!
 
-    private val calendar: Calendar by lazy { Calendar.getInstance() }
     private lateinit var showDate: String
     private lateinit var showTime: String
 
@@ -80,6 +79,7 @@ class AddNoteFragment : Fragment(R.layout.fragment_add_note), MenuProvider {
 
     private fun saveNote(view: View) {
         val noteNumber = binding.addNoteNoEditText.text.toString().trim()
+        val noteNumberInt = if (noteNumber.isNotEmpty()) noteNumber.toInt() else 0
         val noteTitle = binding.addNoteTitleEditText.text.toString().trim()
         val noteDescription = binding.addNoteDescriptionEditText.text.toString().trim()
         val noteDate = binding.pickADate.text.toString().trim()
@@ -91,7 +91,7 @@ class AddNoteFragment : Fragment(R.layout.fragment_add_note), MenuProvider {
 
         if (noteNumber.isNotEmpty() && noteTitle.isNotEmpty() && noteDescription.isNotEmpty()) {
 
-            val note = Note(0, noteNumber, noteTitle, noteDescription, noteDate, noteTime)
+            val note = Note(0, noteNumberInt, noteTitle, noteDescription, noteDate, noteTime)
             notesViewModel.addNote(note)
 
             showToast(getString(R.string.note_saved))
@@ -105,7 +105,7 @@ class AddNoteFragment : Fragment(R.layout.fragment_add_note), MenuProvider {
     }
 
     private fun pickADate() {
-
+        val calendar = Calendar.getInstance()
         val day = calendar.get(Calendar.DAY_OF_MONTH)
         val month = calendar.get(Calendar.MONTH)
         val year = calendar.get(Calendar.YEAR)
@@ -126,6 +126,7 @@ class AddNoteFragment : Fragment(R.layout.fragment_add_note), MenuProvider {
 
     @SuppressLint("SimpleDateFormat")
     private fun pickATime() {
+        val calendar = Calendar.getInstance()
         val currentHour = calendar.get(Calendar.HOUR_OF_DAY)
         val currentMinute = calendar.get(Calendar.MINUTE)
 

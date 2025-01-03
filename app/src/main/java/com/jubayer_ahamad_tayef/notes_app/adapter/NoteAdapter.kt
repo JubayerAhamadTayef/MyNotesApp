@@ -47,7 +47,7 @@ class NoteAdapter(var context: Context) : RecyclerView.Adapter<NoteAdapter.NoteV
 
         holder.itemBinding.time.text = currentNote.noteTime
         holder.itemBinding.date.text = currentNote.noteDate
-        holder.itemBinding.noteNo.text = currentNote.noteNumber
+        holder.itemBinding.noteNo.text = currentNote.noteNumber.toString()
         holder.itemBinding.noteTitle.text = currentNote.noteTitle
         holder.itemBinding.noteDescription.text = currentNote.noteDescription
         setAnimation(holder.itemView, position)

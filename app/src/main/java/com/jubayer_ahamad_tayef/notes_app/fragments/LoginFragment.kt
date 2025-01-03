@@ -63,12 +63,23 @@ class LoginFragment : Fragment() {
                 val email = emailEditText.text.toString().trim()
                 if (isEmailValid() == null) {
                     sendPasswordResetEmail(email)
+                    showAlertDialog(
+                        getString(R.string.reset_password),
+                        getString(R.string.check_email_message, email)
+                    )
                 } else {
                     emailEditTextLayout.error = isEmailValid()
                     showToast(getString(R.string.enter_valid_email))
                 }
             }
         }
+    }
+
+    private fun showAlertDialog(title: String, message: String) {
+        AlertDialog.Builder(requireContext(), R.style.CustomAlertDialogTheme).setTitle(title)
+            .setMessage(message).setPositiveButton(getString(R.string.ok)) { dialog, _ ->
+                dialog.dismiss()
+            }.show()
     }
 
     private fun validateForm() {

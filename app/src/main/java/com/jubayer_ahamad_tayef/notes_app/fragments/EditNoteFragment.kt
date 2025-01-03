@@ -36,7 +36,6 @@ class EditNoteFragment : Fragment(R.layout.fragment_edit_note), MenuProvider {
     private lateinit var notesViewModel: NoteViewModel
     private lateinit var currentNote: Note
 
-    private val calendar: Calendar by lazy { Calendar.getInstance() }
     private lateinit var showDate: String
     private lateinit var showTime: String
 
@@ -67,7 +66,7 @@ class EditNoteFragment : Fragment(R.layout.fragment_edit_note), MenuProvider {
 
         binding.apply {
 
-            editNoteNoEditText.setText(currentNote.noteNumber)
+            editNoteNoEditText.setText(currentNote.noteNumber.toString())
             editNoteTitleEditText.setText(currentNote.noteTitle)
             editNoteDescriptionEditText.setText(currentNote.noteDescription)
             pickADate.text = currentNote.noteDate
@@ -135,6 +134,7 @@ class EditNoteFragment : Fragment(R.layout.fragment_edit_note), MenuProvider {
 
                 binding.apply {
                     val noteNumber = editNoteNoEditText.text.toString().trim()
+                    val noteNumberInt = if (noteNumber.isNotEmpty()) noteNumber.toInt() else 0
                     val noteTitle = editNoteTitleEditText.text.toString().trim()
                     val noteDescription = editNoteDescriptionEditText.text.toString().trim()
                     val noteDate = pickADate.text.toString().trim()
@@ -148,7 +148,7 @@ class EditNoteFragment : Fragment(R.layout.fragment_edit_note), MenuProvider {
 
                         val note = Note(
                             currentNote.id,
-                            noteNumber,
+                            noteNumberInt,
                             noteTitle,
                             noteDescription,
                             noteDate,
@@ -173,7 +173,7 @@ class EditNoteFragment : Fragment(R.layout.fragment_edit_note), MenuProvider {
     }
 
     private fun pickADate() {
-
+        val calendar = Calendar.getInstance()
         val currentDay = calendar.get(Calendar.DAY_OF_MONTH)
         val currentMonth = calendar.get(Calendar.MONTH)
         val currentYear = calendar.get(Calendar.YEAR)
@@ -194,6 +194,7 @@ class EditNoteFragment : Fragment(R.layout.fragment_edit_note), MenuProvider {
 
     @SuppressLint("SimpleDateFormat")
     private fun pickATime() {
+        val calendar = Calendar.getInstance()
         val currentHour = calendar.get(Calendar.HOUR_OF_DAY)
         val currentMinute = calendar.get(Calendar.MINUTE)
 
