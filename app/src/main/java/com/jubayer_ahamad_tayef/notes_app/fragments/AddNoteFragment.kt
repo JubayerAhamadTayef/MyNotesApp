@@ -39,7 +39,7 @@ class AddNoteFragment : Fragment(R.layout.fragment_add_note), MenuProvider {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         addNoteBinding = FragmentAddNoteBinding.inflate(inflater, container, false)
         (activity as MainActivity).showActionBar(true)
         return binding.root
@@ -48,7 +48,6 @@ class AddNoteFragment : Fragment(R.layout.fragment_add_note), MenuProvider {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        noteNumberFocusChangeListener()
         noteTitleFocusChangeListener()
         noteDescriptionFocusChangeListener()
 
@@ -78,20 +77,17 @@ class AddNoteFragment : Fragment(R.layout.fragment_add_note), MenuProvider {
     }
 
     private fun saveNote(view: View) {
-        val noteNumber = binding.addNoteNoEditText.text.toString().trim()
-        val noteNumberInt = if (noteNumber.isNotEmpty()) noteNumber.toInt() else 0
         val noteTitle = binding.addNoteTitleEditText.text.toString().trim()
         val noteDescription = binding.addNoteDescriptionEditText.text.toString().trim()
         val noteDate = binding.pickADate.text.toString().trim()
         val noteTime = binding.pickATime.text.toString().trim()
 
-        binding.addNoteNoEditTextLayout.helperText = isNoteNumberValid()
         binding.addNoteTitleEditTextLayout.helperText = isNoteTitleValid()
         binding.addNoteDescriptionEditTextLayout.helperText = isNoteDescriptionValid()
 
-        if (noteNumber.isNotEmpty() && noteTitle.isNotEmpty() && noteDescription.isNotEmpty()) {
+        if (noteTitle.isNotEmpty() && noteDescription.isNotEmpty()) {
 
-            val note = Note(0, noteNumberInt, noteTitle, noteDescription, noteDate, noteTime)
+            val note = Note(0, null, noteTitle, noteDescription, noteDate, noteTime)
             notesViewModel.addNote(note)
 
             showToast(getString(R.string.note_saved))
@@ -99,7 +95,7 @@ class AddNoteFragment : Fragment(R.layout.fragment_add_note), MenuProvider {
             view.findNavController().popBackStack(R.id.homeFragment, false)
         } else {
 
-           showToast(getString(R.string.please_must_be_enter_note_number_note_title_and_also_note_description_then_click_again_update_note))
+            showToast(getString(R.string.please_must_be_enter_note_title_and_also_note_description_then_click_again_save_note))
 
         }
     }
@@ -152,35 +148,6 @@ class AddNoteFragment : Fragment(R.layout.fragment_add_note), MenuProvider {
             false
         ).show()
 
-    }
-
-    private fun noteNumberFocusChangeListener() {
-        binding.addNoteNoEditText.setOnFocusChangeListener { _, hasFocus ->
-            if (!hasFocus) {
-                binding.addNoteNoEditTextLayout.helperText = isNoteNumberValid()
-            }
-            noteNumberTextChangeListener()
-        }
-    }
-
-    private fun noteNumberTextChangeListener() {
-        binding.addNoteNoEditText.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
-            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                binding.addNoteNoEditTextLayout.helperText = isNoteNumberValid()
-            }
-
-            override fun afterTextChanged(p0: Editable?) {}
-        })
-    }
-
-    private fun isNoteNumberValid(): CharSequence? {
-        val noteNumber = binding.addNoteNoEditText.text.toString().trim()
-        return when {
-            noteNumber.isBlank() -> getString(R.string.note_number_is_required)
-            noteNumber.isNotBlank() -> null
-            else -> getString(R.string.invalid_note_number)
-        }
     }
 
     private fun noteTitleFocusChangeListener() {

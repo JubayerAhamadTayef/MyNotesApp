@@ -52,16 +52,10 @@
                 app:layout_constraintTop_toTopOf="parent">
 
                 <TextView
+                    android:id="@+id/noteNo"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="5dp"
                     android:text="@string/note_no" />
-
-                <TextView
-                    android:id="@+id/note_no"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/_0" />
             </LinearLayout>
 
             <ImageView

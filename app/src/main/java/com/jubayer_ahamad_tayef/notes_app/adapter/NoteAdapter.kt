@@ -1,5 +1,6 @@
 package com.jubayer_ahamad_tayef.notes_app.adapter
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
@@ -42,20 +43,23 @@ class NoteAdapter(var context: Context) : RecyclerView.Adapter<NoteAdapter.NoteV
         return differ.currentList.size
     }
 
+    @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: NoteViewHolder, position: Int) {
         val currentNote = differ.currentList[position]
 
         holder.itemBinding.time.text = currentNote.noteTime
         holder.itemBinding.date.text = currentNote.noteDate
-        holder.itemBinding.noteNo.text = currentNote.noteNumber.toString()
+        holder.itemBinding.noteNo.text = "Note No: ${
+            currentNote.noteNumber ?: currentNote.id
+        }"
         holder.itemBinding.noteTitle.text = currentNote.noteTitle
         holder.itemBinding.noteDescription.text = currentNote.noteDescription
         setAnimation(holder.itemView, position)
 
-        if (currentNote.noteDate?.isBlank() == true){
+        if (currentNote.noteDate?.isBlank() == true) {
             holder.itemBinding.dateIcon.visibility = View.GONE
         }
-        if (currentNote.noteTime?.isBlank() == true){
+        if (currentNote.noteTime?.isBlank() == true) {
             holder.itemBinding.timeIcon.visibility = View.GONE
         }
 

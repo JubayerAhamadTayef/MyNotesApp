@@ -36,9 +36,6 @@ class EditNoteFragment : Fragment(R.layout.fragment_edit_note), MenuProvider {
     private lateinit var notesViewModel: NoteViewModel
     private lateinit var currentNote: Note
 
-    private lateinit var showDate: String
-    private lateinit var showTime: String
-
     private val args: EditNoteFragmentArgs by navArgs()
 
     override fun onCreateView(
@@ -66,7 +63,7 @@ class EditNoteFragment : Fragment(R.layout.fragment_edit_note), MenuProvider {
 
         binding.apply {
 
-            editNoteNoEditText.setText(currentNote.noteNumber.toString())
+            editNoteNoEditText.setText(if (currentNote.noteNumber != null) currentNote.noteNumber.toString() else currentNote.id.toString())
             editNoteTitleEditText.setText(currentNote.noteTitle)
             editNoteDescriptionEditText.setText(currentNote.noteDescription)
             pickADate.text = currentNote.noteDate
@@ -117,7 +114,29 @@ class EditNoteFragment : Fragment(R.layout.fragment_edit_note), MenuProvider {
 
         } || when (menuItem.itemId) {
             R.id.updateMenu -> {
-                updateNote()
+                val noteNumber = binding.editNoteNoEditText.text.toString().trim()
+                val noteNumberLong = if (noteNumber.isNotEmpty()) noteNumber.toLong() else null
+                if (noteNumberLong != null) {
+                    notesViewModel.doesNumberAlreadyExist(noteNumberLong)
+                        .observe(viewLifecycleOwner) { exists ->
+                            if (exists == true && currentNote.noteNumber != noteNumberLong) {
+                                binding.editNoteNoEditTextLayout.helperText =
+                                    "This Note Number is Already Exist! Please, give another Unique Number."
+                            } else {
+                                updateNote()
+                            }
+                        }
+                } else {
+                    val noteTitle = binding.editNoteTitleEditText.text.toString()
+                    val noteDescription = binding.editNoteDescriptionEditText.text.toString()
+                    if (noteNumber.isEmpty() && noteTitle.isEmpty() && noteDescription.isEmpty()) showToast(
+                        "Please, Fill required fields."
+                    ) else {
+                        if (noteNumber.isEmpty()) showToast("Note Number is Required!")
+                        if (noteTitle.isEmpty()) showToast("Note Title is Required!")
+                        if (noteDescription.isEmpty()) showToast("Note Description is Required!")
+                    }
+                }
                 true
             }
 
@@ -134,7 +153,7 @@ class EditNoteFragment : Fragment(R.layout.fragment_edit_note), MenuProvider {
 
                 binding.apply {
                     val noteNumber = editNoteNoEditText.text.toString().trim()
-                    val noteNumberInt = if (noteNumber.isNotEmpty()) noteNumber.toInt() else 0
+                    val noteNumberLong = if (noteNumber.isNotEmpty()) noteNumber.toLong() else 0
                     val noteTitle = editNoteTitleEditText.text.toString().trim()
                     val noteDescription = editNoteDescriptionEditText.text.toString().trim()
                     val noteDate = pickADate.text.toString().trim()
@@ -144,11 +163,11 @@ class EditNoteFragment : Fragment(R.layout.fragment_edit_note), MenuProvider {
                     editNoteTitleEditTextLayout.helperText = isNoteTitleValid()
                     editNoteDescriptionEditTextLayout.helperText = isNoteDescriptionValid()
 
-                    if (noteNumber.isNotEmpty() && noteTitle.isNotEmpty() && noteDescription.isNotEmpty()) {
+                    if (noteTitle.isNotEmpty() && noteDescription.isNotEmpty()) {
 
                         val note = Note(
                             currentNote.id,
-                            noteNumberInt,
+                            noteNumberLong,
                             noteTitle,
                             noteDescription,
                             noteDate,
@@ -182,7 +201,7 @@ class EditNoteFragment : Fragment(R.layout.fragment_edit_note), MenuProvider {
             requireActivity(),
             R.style.CustomDatePickerDialog,
             DatePickerDialog.OnDateSetListener { _, selectedYear, selectedMonth, selectedDay ->
-                showDate = "$selectedDay/${selectedMonth + 1}/$selectedYear"
+                val showDate = "$selectedDay/${selectedMonth + 1}/$selectedYear"
                 binding.pickADate.text = showDate
             },
             currentYear,
@@ -208,7 +227,7 @@ class EditNoteFragment : Fragment(R.layout.fragment_edit_note), MenuProvider {
                 val timeFormatAmPm = SimpleDateFormat(getString(R.string.hh_mm_aa))
                 val timeFormat24Hour = SimpleDateFormat(getString(R.string.hh_mm))
 
-                showTime = when (timePicker.is24HourView) {
+                val showTime = when (timePicker.is24HourView) {
                     true -> timeFormat24Hour.format(calendar.time)
                     false -> timeFormatAmPm.format(calendar.time)
                 }

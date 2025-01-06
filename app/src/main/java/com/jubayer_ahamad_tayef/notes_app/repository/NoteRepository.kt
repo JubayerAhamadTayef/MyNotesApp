@@ -12,4 +12,8 @@ class NoteRepository(private val database: NoteDatabase) {
     fun getAllNotes() = database.getNoteDao().getAllNotes()
     fun searchNote(query: String?) = database.getNoteDao().searchNote(query)
 
+    suspend fun doesNumberAlreadyExist(noteNumber: Long): Boolean {
+        val count = database.getNoteDao().isNumberAlreadyExists(noteNumber)
+        return count > 0
+    }
 }

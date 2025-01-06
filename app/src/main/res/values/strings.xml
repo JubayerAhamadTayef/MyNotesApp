@@ -75,7 +75,7 @@
     <string name="please_provide_valid_information_and_try_again">Please provide valid information and try again.</string>
     <string name="user_name_is_required">User name is required.</string>
     <string name="user_name_must_contain_at_least_one_uppercase_or_lowercase_letter">User name must contain at least one uppercase or lowercase letter.</string>
-   <string name="note_number_is_required">Note number is required.</string>
+    <string name="note_number_is_required">Note number is required.</string>
     <string name="note_title_is_required">Note title is required.</string>
     <string name="invalid_note_title">Invalid note title.</string>
     <string name="invalid_note_number">Invalid note number.</string>
@@ -89,6 +89,7 @@
     <string name="note_deleted">Note Deleted!</string>
     <string name="no">No</string>
     <string name="note_updated">Note Updated!</string>
+    <string name="please_must_be_enter_note_title_and_also_note_description_then_click_again_save_note">Please, Must be enter Note Title and also Note Description. Then click again Save Note!</string>
     <string name="please_must_be_enter_note_number_note_title_and_also_note_description_then_click_again_update_note">Please, Must be enter Note Number, Note Title and also Note Description. Then click again Update Note!</string>
     <string name="hh_mm_aa">hh:mm aa</string>
     <string name="hh_mm">HH:mm</string>

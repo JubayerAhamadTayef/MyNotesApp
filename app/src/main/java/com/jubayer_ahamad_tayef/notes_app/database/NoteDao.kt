@@ -23,6 +23,9 @@ interface NoteDao {
     @Query("SELECT * FROM NOTES ORDER BY noteNumber")
     fun getAllNotes(): LiveData<List<Note>>
 
-    @Query("SELECT * FROM NOTES WHERE noteNumber LIKE :query OR noteTime LIKE :query OR noteDate LIKE :query OR noteTitle LIKE :query OR noteDescription LIKE :query")
+    @Query("SELECT * FROM NOTES WHERE noteNumber LIKE :query OR id LIKE :query OR noteTime LIKE :query OR noteDate LIKE :query OR noteTitle LIKE :query OR noteDescription LIKE :query")
     fun searchNote(query: String?): LiveData<List<Note>>
+
+    @Query("SELECT COUNT(*) FROM notes WHERE number = :noteNumber")
+    suspend fun isNumberAlreadyExists(noteNumber: Long): Int
 }
